@@ -50,4 +50,4 @@ def post(request):
         if post and post.author == request.user:
             post.delete()  
 
-    return render(request, 'gram/posts.html', {'posts':posts})
+    return render(request, 'gram/create_posts.html', {'posts':posts})
