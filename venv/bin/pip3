@@ -1,4 +1,4 @@
-#!/home/natasha245/Desktop/TashaGram/venv/bin/python3
+#!/home/natasha245/Desktop/Moringa-school-projects/Django/TashaGram/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -14,21 +14,17 @@ def sign_up(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+            name = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            send_welcome_email(name, email)
+            
             login(request, user)
             return redirect('/login')
-        
+
         messages.success(request, "Your account has been successfully created")
     
-    # if form.objects.filter(user=user):
-    #     messages.error(request, 'Username already exists. Try another username')
-    #     return redirect('/signup')
-    
-    # if form.objects.filter(email=email):
-    #     messages.error(request, 'Username already exists. Try another username')
-    #     return redirect('/signup')
-
     else:
         form = RegisterForm() 
-
         
     return render(request, 'registration/signup.html', {'form':form})    
+
