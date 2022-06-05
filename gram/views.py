@@ -9,22 +9,24 @@ from .models import *
 
 # Create your views here.
 def index(request):
+
     return render(request, 'gram/index.html', {})
 
 def sign_up(request):
     if request.method == 'POST':
-        user = request.POST('user')
-        username = request.POST('username')
-        email = request.POST('email')
-        password = request.POST('password')
-        password1 = request.POST('password1')
+        # fname = request.POST['fname']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password1 = request.POST['password1']
 
-        my_user = User.objects.create_user(username, email, password)
-        my_user.save()
+        user = User( username=username, email=email, password=password )
+        user.save()
+        login(request, user)
 
         messages.success(request, "Your account has been successfully created")
 
-        return redirect('signup')
+        return redirect('/profile')
 
     #     if form.is_valid():
     #         user = form.save()
@@ -36,18 +38,41 @@ def sign_up(request):
         #     return redirect('/login')
 
     
-    # else:
-    #     form = form
+    else:
         
-    return render(request, 'registration/signup.html', {}) 
+        return render(request, 'registration/signup.html', {}) 
+
+def profile(request):
+        posts = Post.objects.all()
+
+        if request.method == 'POST':
+            post_id = request.POST.get('post-id')
+            post = Post.objects.filter(id=post_id).first()
+            if post and post.author == request.user:
+                post.delete() 
+
+        return render(request, 'gram/profile.html', {'posts':posts})    
 
 def post(request):
-    posts = Post.objects.all()
-
     if request.method == 'POST':
-        post_id = request.POST.get('post-id')
-        post = Post.objects.filter(id=post_id).first()
-        if post and post.author == request.user:
-            post.delete()  
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()   
+            return redirect('/profile')
+    else:
+        form = PostForm()  
 
-    return render(request, 'gram/create_posts.html', {'posts':posts})
+    return render(request, 'gram/create_posts.html', {'form':form})
+
+def dashboard(request):
+    if request.method == 'POST':
+            form = ImageForm(request.POST, request.FILES)
+            if form.is_valid:
+                form.save()
+    form=ImageForm()
+    img = Image.objects.all()
+
+    return render(request, 'gram/dashboard.html', {'img':img, 'form':form})            
+

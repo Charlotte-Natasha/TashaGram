@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <h1>Posts</h1>
+<form method="POST">
+    {% csrf_token %}
+    
+    
+    {{form.as_p}} 
+    
+        <!-- <p>{{post.author}}</p>
+    
+        <p>{{post.caption}}</p> -->
+        
+        <button type="submit" value="submit" class="btn btn-secondary">Post</button>
+    
+    
 
-    {% for post in posts %}
+</form>
     
-        <p>{{post.author}}</p>
-    
-        <p>{{post.caption}}</p>
-    
-    {% endfor %}
-    
+
 {% endblock %}

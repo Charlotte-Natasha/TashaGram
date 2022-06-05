@@ -25,7 +25,7 @@
                     <a class="nav-link" href="/create_posts">Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Projects</a>
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
             </ul>
             <!-- Left links -->
@@ -37,6 +37,9 @@
             <!-- Icon -->
             <a class="text-reset me-3" href="#">
                 <i class="fas fa-heartbeat"></i>
+            </a>
+            <a class="text-reset me-3" href="#">
+                <i class="fas fa-inbox"></i>
             </a>
 
             <!-- Notifications -->
@@ -66,16 +69,24 @@
                         alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                    {% if user.is_authenticated%}
                     <li>
-                        <a class="dropdown-item" href="#">My profile</a>
+                        <a class="dropdown-item" href="/profile">{{user.username}}</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
                     </li>
+                    {% else %}
                     <li>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                     </li>
+                    {% endif %}
                 </ul>
+            </div>
+            <div>
+                <a class="text-reset me-3" href="/signup">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
             </div>
         </div>
         <!-- Right elements -->
