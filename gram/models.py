@@ -24,5 +24,11 @@ class Image(models.Model):
     dislikes = models.ManyToManyField(User, blank=True, related_name='post_dislikes')
 
     def __str__(self): 
-        return self.caption + "\n" + self.description
+        return self.title
 
+class FollowersCount(models.Model):
+    follower = models.CharField(max_length=1000)
+    user = models.CharField(max_length=1000)
+
+    def __str__(self): 
+        return self.user

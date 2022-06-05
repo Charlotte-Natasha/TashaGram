@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -9,7 +10,7 @@ from .models import *
 
 # Create your views here.
 def index(request):
-
+    
     return render(request, 'gram/index.html', {})
 
 def sign_up(request):
@@ -20,13 +21,14 @@ def sign_up(request):
         password = request.POST['password']
         password1 = request.POST['password1']
 
-        user = User( username=username, email=email, password=password )
+        user = User.objects.create_user( username=username, email=email, password=password )
         user.save()
-        login(request, user)
+        
 
         messages.success(request, "Your account has been successfully created")
 
-        return redirect('/profile')
+        return redirect('/login')
+    
 
     #     if form.is_valid():
     #         user = form.save()
@@ -67,12 +69,13 @@ def post(request):
     return render(request, 'gram/create_posts.html', {'form':form})
 
 def dashboard(request):
-    if request.method == 'POST':
-            form = ImageForm(request.POST, request.FILES)
-            if form.is_valid:
-                form.save()
-    form=ImageForm()
-    img = Image.objects.all()
+    current_user = request.POST.get('user')
+    logged_in_user = request.user.username
 
-    return render(request, 'gram/dashboard.html', {'img':img, 'form':form})            
+    return render(request, 'gram/dashboard.html', {'current_user':current_user})
 
+def uploadok(request):
+    return HttpResponse('upload successful')               
+
+def followers(request):
+    pass 
