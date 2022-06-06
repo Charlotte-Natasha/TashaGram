@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Post)
 admin.site.register(Image)
 admin.site.register(FollowersCount)
+admin.site.register(Comment)
