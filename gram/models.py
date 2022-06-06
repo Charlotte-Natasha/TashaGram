@@ -33,3 +33,12 @@ class FollowersCount(models.Model):
 
     def __str__(self): 
         return self.user
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
+    user = models.CharField(max_length=1000)
+    description = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.post.title + "\n" + self.user
