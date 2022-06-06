@@ -62,6 +62,7 @@ def uploadok(request):
 
 def profile(request):
         posts = Post.objects.all()
+        profile = Profile.objects.get(user=request.user)
 
         if request.method == 'POST':
             post_id = request.POST.get('post-id')

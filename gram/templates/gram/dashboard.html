@@ -4,25 +4,6 @@
 
 {% block content %}
 
-<div class="profile">
-    <h1 class="profil-name">Test-User</h1>
 
-    <form action="followers" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="user" value="{{current_user}}" readonly>
-        <input type="hidden" name="follower" value="{{user.username}}" readonly>
-        <input type="hidden" name="value" value="follow" readonly>
-        <button class="btn btn-success" type="submit">Follow</button>
-    </form>
-    <button class="btn btn-success" type="submit">Unfollow</button>
-    
-</div>
-
-<div class="stats">
-    <ul>
-        <li> <span class="stat-count">x</span> Follower</li>
-        <li> <span class="stat-count">x</span> Following</li>
-    </ul>
-</div>
 
 {% endblock %}

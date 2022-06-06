@@ -1,3 +1,5 @@
+import profile
+import re
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -12,8 +14,17 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self): 
-        return self.title
-        # return self.caption + "\n" + self.description
+        return self.caption + "\n" + self.description
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    followers = models.ManyToManyField(User, related_name="followers", blank=True)
+    followings = models.ManyToManyField(User, related_name="followings")
+    profile_picture = models.ImageField(upload_to="profilepics")
+
+    def __str__(self): 
+        return self.user
+
 
 class Image(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to='media/images')
