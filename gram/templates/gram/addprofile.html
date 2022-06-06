@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<center>
+    <div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </form>
+        <button type="submit">Upload</button>
+    </div>
+    <div class="container3" style="display: flex; flex-direction:row;">
+        <div class="row">
+            {% for x in img %}
+            <div class="card m-3">
+                <small style="text-align: center;">{{x.caption}}</small>
+            </div>
+            <center>
+                <img src="{{x.photo.url}}" alt="" class="card" height="400px" width="600px">
+            </center>
+            <div class="card-footer">
+                <small>{{x.description}}</small>
+            </div>
+            <div style="display: flex; flex-direction:row; justify-content:space-between;">
+                <small class="text-muted">{{x.date}}</small>
+                <form action="like" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="image" value="{{x.id}}" style="display: none;">
+                    <button type="submit">Like</button>
+                </form>
+                <form action="dislike" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="image" value="{{x.id}}" style="display: none;">
+                    <button type="submit">Dislike</button>
+                </form>
+            </div>
+            <p>Likes: {{x.likes.count}}</p>
+            <p>Dislikes: {{x.dislikes.count}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</center>
+    
+{% endblock%}

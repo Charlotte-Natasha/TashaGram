@@ -49,9 +49,23 @@
                 <div class="card-body">
                     <h5 class="card-title">Books</h5>
                     <p class="card-text">My kind of heaven.</p>
+                    <input type="text">
+                </div>
+                <div class="card-footer">
+                    <form action="dislike" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="image" value="{{x.id}}" style="display: none;">
+                        <button type="submit" class="btn btn-danger">Dislike</button>
+                    </form>
+                    <form action="like" method="POST" class="d-flex flex-row justify-content-between">
+                        {% csrf_token %}
+                        <input type="text" name="image" value="{{x.id}}" style="display: none;">
+                        <button type="submit" class="btn btn-danger">Like</button>
+                    </form>
                 </div>
         </div>
     </div>
+
     
     
 <!-- </section>

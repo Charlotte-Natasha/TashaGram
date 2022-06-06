@@ -68,14 +68,38 @@ def post(request):
 
     return render(request, 'gram/create_posts.html', {'form':form})
 
-def dashboard(request):
-    current_user = request.POST.get('user')
-    logged_in_user = request.user.username
-
-    return render(request, 'gram/dashboard.html', {'current_user':current_user})
-
 def uploadok(request):
-    return HttpResponse('upload successful')               
+    return HttpResponse('upload successful') 
+
+def dashboard(request):
+    current_user = request.GET.get('user')
+    logged_in_user = request.user.username
+    user_followers = len(FollowersCount.objects.filter(user=current_user))
+    user_following = len(FollowersCount.objects.filter(follower=current_user))
+    print(user_followers)
+
+    return render(request, 'gram/dashboard.html', {'current_user':current_user})              
 
 def followers(request):
-    pass 
+    if request.method == 'POST':
+        value = request.POST['value']
+        user = request.POST['user']
+        follower = request.POST['follower']
+
+        if value == 'follow':
+            follower_cnt = FollowersCount.objects.create(follower=follower, user=user)
+            follower_cnt.save()
+
+        return redirect('/?user'+user)    
+
+def addprofile(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+        form=ImageForm()
+        img = Image.objects.all()   
+        
+        return render(request, 'gram/addprofile.html', {'img':img, 'form':form}) 
+    

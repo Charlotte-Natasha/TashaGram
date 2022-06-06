@@ -12,7 +12,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self): 
-        return self.caption + "\n" + self.description
+        return self.title
+        # return self.caption + "\n" + self.description
 
 class Image(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to='media/images')
