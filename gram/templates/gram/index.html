@@ -33,6 +33,18 @@
                     <h5 class="card-title">Flowers</h5>
                     <p class="card-text">Who doesn't like flowers? You're a bum if you don't..</p>
                 </div>
+                <div class="card-footer d-flex flex-row justify-content-between">
+                    <form action="dislike" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="image" value="{{x.id}}" style="display: none;">
+                        <button type="submit" class="btn btn-danger">Dislike</button>
+                    </form>
+                    <form action="like" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="image" value="{{x.id}}" style="display: none;">
+                        <button type="submit" class="btn btn-danger">Like</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -51,13 +63,13 @@
                     <p class="card-text">My kind of heaven.</p>
                     <input type="text">
                 </div>
-                <div class="card-footer">
+                <div class="card-footer d-flex flex-row justify-content-between">
                     <form action="dislike" method="POST">
                         {% csrf_token %}
                         <input type="text" name="image" value="{{x.id}}" style="display: none;">
                         <button type="submit" class="btn btn-danger">Dislike</button>
                     </form>
-                    <form action="like" method="POST" class="d-flex flex-row justify-content-between">
+                    <form action="like" method="POST">
                         {% csrf_token %}
                         <input type="text" name="image" value="{{x.id}}" style="display: none;">
                         <button type="submit" class="btn btn-danger">Like</button>

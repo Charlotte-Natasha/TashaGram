@@ -42,22 +42,11 @@ def sign_up(request):
     
     else:
         
-        return render(request, 'registration/signup.html', {}) 
-
-def profile(request):
-        posts = Post.objects.all()
-
-        if request.method == 'POST':
-            post_id = request.POST.get('post-id')
-            post = Post.objects.filter(id=post_id).first()
-            if post and post.author == request.user:
-                post.delete() 
-
-        return render(request, 'gram/profile.html', {'posts':posts})    
+        return render(request, 'registration/signup.html', {})     
 
 def post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -69,7 +58,18 @@ def post(request):
     return render(request, 'gram/create_posts.html', {'form':form})
 
 def uploadok(request):
-    return HttpResponse('upload successful') 
+    return HttpResponse('upload successful')
+
+def profile(request):
+        posts = Post.objects.all()
+
+        if request.method == 'POST':
+            post_id = request.POST.get('post-id')
+            post = Post.objects.filter(id=post_id).first()
+            if post and post.author == request.user:
+                post.delete() 
+
+        return render(request, 'gram/profile.html', {'posts':posts})     
 
 def dashboard(request):
     current_user = request.GET.get('user')
@@ -98,8 +98,8 @@ def addprofile(request):
 
         if form.is_valid():
             form.save()
-        form=ImageForm()
-        img = Image.objects.all()   
+    form=ImageForm()
+    img = Image.objects.all()   
         
-        return render(request, 'gram/addprofile.html', {'img':img, 'form':form}) 
+    return render(request, 'gram/addprofile.html', {'img':img, 'form':form}) 
     
