@@ -4,22 +4,20 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1>Posts</h1>
-<form method="POST" enctype="multipart/form-data">
-    
-    {% csrf_token %}
-    
-    
-    {{form.as_p}} 
-    
-        <!-- <p>{{post.author}}</p>
-    
-        <p>{{post.caption}}</p> -->
-        
-        <button type="submit" value="submit" class="btn btn-secondary">Post</button>
-    
-    
 
+<form class="container" method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 class="text-center text-white">Upload Post</h1>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Post</label>
+        <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="post" />
+    </div>
+    <div class="form-outline">
+        <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+        <label class="form-label" for="textAreaExample">Description</label>
+    </div>
+
+    <button type="submit" value="submit" class="btn text-white">Post</button>
 </form>
     
 

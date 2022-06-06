@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.urls import path
 from . import views
 from .views import *
@@ -10,5 +11,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('search', views.search, name='search'),
-    path('comment/', views.comment, name='comment')
+    path('comment/', views.comment, name='comment'),
+    path('follow/<int:id>/<str:username>/', views.follow, name='follow')
 ]
