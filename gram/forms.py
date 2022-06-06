@@ -7,9 +7,4 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = '__all__'
 
-class ImageForm(forms.ModelForm):
-    class Meta:
-        model = Image
-        fields = ['image', 'caption', 'description']
-        labels = {'photo':''}   
 

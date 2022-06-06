@@ -12,14 +12,16 @@
             Login
         </a>
     </div>  -->
+    {% if profile_of_user%}
     <div class="left-side">
         <div class="story">
             <div class="stories">
-                <a href=""><img src="" width="60" height="60" alt=""></a>
+                <a href=""><img src="{{profile.profile_picture.url}}" width="60" height="60" alt=""></a>
                 <p>Natasha</p>
             </div>
         </div>
     </div>
+    {% endif %}
     <div class="row">
         <div class="col-md-6 offset-md-3 mt-2">
             <div class="card">

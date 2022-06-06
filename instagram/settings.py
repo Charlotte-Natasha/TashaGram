@@ -143,6 +143,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+AUTH_PROFILE_MODULE = 'gram.Profile'
 
 
 # Default primary key field type

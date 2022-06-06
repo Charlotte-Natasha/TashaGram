@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -62,7 +63,7 @@ def uploadok(request):
 
 def profile(request):
         posts = Post.objects.all()
-        profile = Profile.objects.get(user=request.user)
+        # profile = Profile.objects.get(user=request.user)
 
         if request.method == 'POST':
             post_id = request.POST.get('post-id')
@@ -70,37 +71,22 @@ def profile(request):
             if post and post.author == request.user:
                 post.delete() 
 
-        return render(request, 'gram/profile.html', {'posts':posts})     
+        return render(request, 'gram/profile.html', {'posts':posts, 'profile':profile, 'profile_of_user':True})     
+
+def search(request):
+    search = request.GET['username']
+    profiles = Profile.objects.filter(user__username__icontains=search)
+    context = {'profiles':profiles}
+
+    return render(request, 'gram/search.html', context)
 
 def dashboard(request):
-    current_user = request.GET.get('user')
-    logged_in_user = request.user.username
-    user_followers = len(FollowersCount.objects.filter(user=current_user))
-    user_following = len(FollowersCount.objects.filter(follower=current_user))
-    print(user_followers)
+    
+    return render(request, 'gram/dashboard.html', {})              
 
-    return render(request, 'gram/dashboard.html', {'current_user':current_user})              
 
-def followers(request):
-    if request.method == 'POST':
-        value = request.POST['value']
-        user = request.POST['user']
-        follower = request.POST['follower']
-
-        if value == 'follow':
-            follower_cnt = FollowersCount.objects.create(follower=follower, user=user)
-            follower_cnt.save()
-
-        return redirect('/?user'+user)    
-
-def addprofile(request):
-    if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-    form=ImageForm()
-    img = Image.objects.all()   
+def comment(request):
+    
         
-    return render(request, 'gram/addprofile.html', {'img':img, 'form':form}) 
+    return render(request, 'gram/comment.html', {}) 
     

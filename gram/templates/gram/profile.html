@@ -2,89 +2,82 @@
 {% load static %}
 
 {% block content %}
-<div class="d-flex header justify-content-arround align-items-center my-3">
-    <img src="" alt="" width="22" height="22" class="rounded-circle" style="width: 55px; height: 55px;">
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex flex-column">
-            <h5>Posts</h5>
-            <h5></h5>
-        </div>
-        {% if profile_of_user %}
-        <div class="d-flex flex-column">
-            <h5>Followers</h5>
-            <h5>{{profile.followers.count}}</h5>
-        </div>
-        <div class="d-flex flex-column">
-            <h5>Following</h5>
-            <h5>{{profile.following.count}}</h5>
-        </div>
-        {% endif %}
-    </div>
-</div>
 
-{% for post in posts %}
-<div class="row">
-    <div class="col-md-6 offset-md-3 mt-2">
-        <div class="card">
-            <div class="card-header">
-                <strong>@{{post.author.username}}</strong>
+{% comment %} {% if profile_of_user %}
+<div class="container">
+    <div class="d-flex header justify-content-around align-items-center my-3">
+        <img src="{{profile.profile_picture.url}}" width="22" height="22" class="rounded-circle" alt="..."
+            style="width: 55px; height: 55px" />
+        <div class="d-flex justify-content-around align-items-center" style="width: 50vw">
+            <div class="d-flex flex-column">
+                <h5>Posts</h5>
+                <h5>{{posts_num}}</h5>
             </div>
-            {% if post.image %}
-            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="{{post.image.url}}" class="img-fluid" />
-                <a href="#!">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
+            <div class="d-flex flex-column">
+                <h5>Followers</h5>
+                <h5>{{profile.followers.count}}</h5>
             </div>
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{post.caption}}</h5>
-                <p class="card-text">{{post.description}}</p>
+            <div class="d-flex flex-column">
+                <h5>Following</h5>
+                <h5>{{profile.followings.count}}</h5>
             </div>
-            <div class="card-footer d-flex flex-row justify-content-between">
-                <form action="dislike" method="POST">
-                    {% csrf_token %}
-                    <input type="text" name="image" value="{{x.id}}" style="display: none;">
-                    <button type="submit" class="btn btn-danger">Dislike</button>
-                </form>
-                <form action="like" method="POST">
-                    {% csrf_token %}
-                    <input type="text" name="image" value="{{x.id}}" style="display: none;">
-                    <button type="submit" class="btn btn-danger">Like</button>
-                </form>
-                <div>
-                    {% if user == post.author %}
-                    <form method="POST">
-                        {% csrf_token %}
-                        <button type="submit"  class="btn btn-danger" name="post-id" value="{{post.id}}">Delete</button>
-                    </form>
-                    {% endif %}   
+        </div>
+    </div>
+    <div class="row">
+        {% for post in posts %}
+        
+        <div class="col-sm m-3">
+            <div class="card" style="width: 18rem">
+                <img src="{{post.image.url}}" class="card-img-top" alt="..." />
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %} {% endcomment %}
+    <div class="container">
+        <div class="d-flex header justify-content-around align-items-center my-3">
+            <img src="{{profile.profile_picture.url}}" width="22" height="22" class="rounded-circle" alt="..."
+                style="width: 55px; height: 55px" />
+            <div class="d-flex justify-content-around align-items-center" style="width: 50vw">
+                <div class="d-flex flex-column">
+                    <h5>Posts</h5>
+                    <h5>{{posts_num}}</h5>
+                </div>
+                <div class="d-flex flex-column">
+                    <h5>Followers</h5>
+                    <h5>{{profile.followers.count}}</h5>
+                </div>
+                <div class="d-flex flex-column">
+                    <h5>Following</h5>
+                    <h5>{{profile.followings.count}}</h5>
                 </div>
             </div>
-            <div class="card-footer text-muted">
-                {{post.created_at}}
-            </div>
-            {% if not post.comments.all %}
-
-            {% else %}
-            {% for comment in post.comments.all %}
-            <strong>
-                {{ comment.user }}
-                {{ comment.date_added }}
-            </strong>
-            
-            {% endfor %}
-            <!-- <div class="form-outline">
-                <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
-                <label class="form-label" for="textAreaExample">Comment</label>
-            </div> -->
-            {% endif %}
         </div>
-    </div>
+        <div class="row">
+            {% for post in posts %}
+        
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{post.image.url}}" class="img-fluid rounded-start" alt="..." />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5>{{post.user.username}}</h5>
+                            <p class="card-text">{{post.description}}</p>
+                            <p class="card-text">
+                                <small class="text-muted"></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+        {% comment %} {% endif %} {% endcomment %}
 </div>
-
-{% empty %}
-<p>No posts yet..</p>
-{% endfor %}
-
 {% endblock %}
+
+
+

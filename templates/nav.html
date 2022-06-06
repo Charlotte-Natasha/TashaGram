@@ -64,15 +64,19 @@
                     </li>
                 </ul>
             </div>
+            <div class="search">
+                <form action="/search" method="GET">
+                    <input type="text" placeholder="search" name="username">
+                    <button class="btn btn-success">Search</button>
+                </form>
+            </div>
             <!-- Avatar -->
             <div class="dropdown">
-                
                 <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
                     role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25"
                         alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
-                
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     {% if user.is_authenticated%}
                     <li>
@@ -98,16 +102,3 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->
-<!-- <nav class="flex justify-between items-center py-3 px-4 fixed w-full z-50">
-    <div class="w-6/12">
-        <img src="" alt="logo" class="w-5/12 md:w-2/12">
-    </div>
-
-    <div class="d-flex">
-        <a href="/home" class='bg-primary_red py-1 px-3 md:text-lg rounded-md'>Home</a>
-        <a href="/posts" class='bg-primary_red py-1 px-3 md:text-lg rounded-md'>
-            Posts
-        </a>
-    </div>
-</nav> -->
