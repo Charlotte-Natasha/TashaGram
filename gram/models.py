@@ -9,10 +9,7 @@ class Post(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(User, related_name="likes", blank=True)
-    dislikes = models.ManyToManyField(User, related_name="dislikes", blank=True)
     
-
     def __str__(self): 
         return self.description
 

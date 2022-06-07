@@ -1,4 +1,3 @@
-from email.mime import image
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -32,11 +31,11 @@ def sign_up(request):
         return redirect('/login')
     
 
-    #     if form.is_valid():
-    #         user = form.save()
-            # name = form.cleaned_data['username']
-            # email = form.cleaned_data['email']
-            # send_welcome_email(name, email)
+        if form.is_valid():
+            user = form.save()
+            name = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            send_welcome_email(name, email)
             
         #     login(request, user)
         #     return redirect('/login')
@@ -52,7 +51,7 @@ def post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            post.description = request.user
             post.save()   
             return redirect('/profile')
     else:

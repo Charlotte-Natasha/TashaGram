@@ -6,6 +6,9 @@ class PostForm(forms.ModelForm):
     class Meta:  
         model = Post
         fields = '__all__'
+        widgets = {
+            
+        }
 
 class CommentForm(forms.ModelForm):
     class Meta:
