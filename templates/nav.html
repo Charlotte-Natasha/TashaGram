@@ -24,9 +24,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/create_posts">Posts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Dashboard</a>
-                </li>
             </ul>
             <!-- Left links -->
         </div>
@@ -77,7 +74,7 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     {% if user.is_authenticated%}
                     <li>
-                        <a class="dropdown-item" href="/profile">{{user.username}}</a>
+                        <a class="dropdown-item" href="{% url 'profile' %}">{{request.user}}</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="/logout">Logout</a>
